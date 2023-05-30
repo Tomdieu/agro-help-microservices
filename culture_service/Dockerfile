@@ -7,8 +7,8 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production
-
+RUN npm install -g npm@9.6.7
+RUN npm install --save --force
 # Copy the rest of the app files
 COPY . .
 
