@@ -1,0 +1,17 @@
+node_modules
+
+build
+
+.env
+.env.*
+
+
+other/
+
+help.*
+
+db.sqlite
+*.sqlite
+
+**/media/**
+!**/media

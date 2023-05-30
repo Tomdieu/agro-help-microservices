@@ -1,0 +1,9 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      container_name: culture_service
+    ports:
+      - '5000:5000'

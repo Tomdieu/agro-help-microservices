@@ -1,0 +1,6 @@
+{
+    "watch": ["src",".env"],
+    "ext": ".ts,.js",
+    "ignore": ["node_module","./src/media/"],
+    "exec": "npx ts-node ./src/index.ts"
+  }
