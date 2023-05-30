@@ -19,11 +19,20 @@ var storage = multer.diskStorage({
 });
 
 let serverAddress: string = null;
-let serverPort: string = null;
+let serverPort: number = null;
+let serverProtocol: string = null;
 
-function setServerConfig(address: string, port: string) {
+function setServerConfig(address: string, port: number) {
   serverAddress = address;
   serverPort = port;
+}
+
+function setServerProtocole(protocole: string) {
+  serverProtocol = protocole;
+}
+
+function getServerProtocole() {
+  return serverProtocol;
 }
 
 function getServerAddress() {
@@ -41,4 +50,6 @@ export {
   setServerConfig,
   getServerAddress,
   getServerPort,
+  setServerProtocole,
+  getServerProtocole,
 };
