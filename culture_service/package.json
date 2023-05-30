@@ -19,7 +19,6 @@
     "@types/node": "^18.15.11",
     "@types/serialize-javascript": "^5.0.2",
     "@types/uuid": "^9.0.1",
-    "mysql": "^2.18.1",
     "nodemon": "^2.0.22",
     "rimraf": "^5.0.0",
     "sequelize": "^6.31.0",
@@ -29,9 +28,6 @@
   },
   "dependencies": {
     "amqplib": "^0.10.3",
-    "bcrypt": "^5.1.0",
-    "body-parser": "^1.20.2",
-    "chalk": "^5.2.0",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -40,15 +36,8 @@
     "express-oas-validator": "^3.0.1",
     "express-serializer": "^1.0.1",
     "express-validator": "^7.0.1",
-    "ip-address": "^8.1.0",
-    "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "mysql2": "^3.2.3",
-    "node-cron": "^3.0.2",
     "serialize-javascript": "^6.0.1",
-    "socket.io": "^4.6.1",
-    "uuid": "^9.0.0",
-    "winston": "^3.9.0",
-    "yup": "^1.0.2"
+    "winston": "^3.9.0"
   }
 }
