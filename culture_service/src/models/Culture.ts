@@ -2,7 +2,12 @@ import { sequelize } from "../config/db";
 import { Model, DataTypes, Optional } from "sequelize";
 
 import { sendData } from "../producer";
-import { MEDIA_ROOT, getServerAddress, getServerPort } from "../config";
+import {
+  MEDIA_ROOT,
+  getServerAddress,
+  getServerPort,
+  getServerProtocole,
+} from "../config";
 import fs from "fs";
 
 interface CultureAttributes {
@@ -28,7 +33,9 @@ class Culture
     const mediaFolder = "media";
     const address = getServerAddress();
     const port = getServerPort();
-    return `${address}/${mediaFolder}/${this.image}`;
+    const protocole = getServerProtocole();
+    const url = `${protocole}://${address}:${port}/${mediaFolder}`;
+    return this.image.split(".").length > 1 ? `${url}/${this.image}` : null;
   }
 }
 

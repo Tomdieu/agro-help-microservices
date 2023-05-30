@@ -1,6 +1,7 @@
 import { MEDIA_ROOT } from "../config";
 import { Culture, Fertilizer } from "../models";
 import Soil from "../models/Soil";
+import serializeCulture from "../serializers/culture.serializer";
 import CulturePractiseService from "../service/culture-practise.service";
 import CultureService from "../service/culture.service";
 import { status } from "../status";
@@ -16,7 +17,7 @@ export const listCulture = async (req: Request, res: Response) => {
   const cultures = await CultureService.getAll({
     include: [{ model: Soil, as: "soils" }],
   });
-  res.status(200).send(cultures);
+  res.status(200).send(serializeCulture(cultures));
 };
 
 /**

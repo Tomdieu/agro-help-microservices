@@ -1,4 +1,4 @@
-import {Culture} from './models';
+import { Culture } from "../models";
 
 function serializeCulture(culture: Culture | Culture[]): any {
   const serializeSingleCulture = (c: Culture) => {
