@@ -1,3 +1,5 @@
+import { isIPv6 } from "./isIpv6";
+
 export function IP6to4(ip6: string) {
   function parseIp6(ip6str: string) {
     const str = ip6str.toString();
@@ -26,6 +28,10 @@ export function IP6to4(ip6: string) {
     }
 
     return ar;
+  }
+
+  if (!isIPv6(ip6)) {
+    return ip6;
   }
 
   var ip6parsed = parseIp6(ip6);
