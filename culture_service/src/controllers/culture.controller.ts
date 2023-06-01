@@ -46,11 +46,13 @@ export const getCulture = async (req: Request, res: Response) => {
  * @param res
  */
 export const createCulture = async (req: Request, res: Response) => {
-  const { culture_name } = req.body;
+  const { culture_name, description, category } = req.body;
   const image = req.file?.filename || "";
   const culture = await CultureService.create({
     name: culture_name.toLowerCase(),
     image,
+    category,
+    description,
   });
   res.status(status.HTTP_CREATED).send(culture);
 };
