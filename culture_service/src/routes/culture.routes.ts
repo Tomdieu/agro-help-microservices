@@ -30,8 +30,9 @@ const router = Router();
  * CultureCreate
  * @typedef {object} CultureCreate
  * @property {string} culture_name.required - The culture name
+ * @property {string} category.required - The culture category
+ * @property {string} description - The culture description
  */
-// * @property {FileData} image - The culture image
 
 /**
  * Culture
@@ -39,6 +40,8 @@ const router = Router();
  * @property {number} id -  Culture id
  * @property {string} name.required - The culture name
  * @property {string} image - The culture image
+ * @property {string} category.required - The culture category
+ * @property {string} description - The culture description
  * @property {array<Soil>} soils - The soils favorable for a culture
  */
 
@@ -59,14 +62,16 @@ router.get("/", listCulture);
  * @consumes multipart/form-data
  * @param {string} culture_name.formData.required - The Culture name
  * @param {file} image.formData.file - The culture file
+ * @param {string} category.formData.required - The Culture category
+ * @param {string} description.formData - The culture description
  * @return {Culture} 201 - success
  * @return {object} 400 -  Bad Request
  */
 router.post(
   // * @param {CultureCreate} request.formData.required - The request body as multipart/form-data
   "/",
-  upload.single("image"),
   validate(createCultureSchema),
+  upload.single("image"),
   createCulture
 );
 
