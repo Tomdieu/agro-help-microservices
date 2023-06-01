@@ -2,6 +2,9 @@ import { sequelize } from "../config/db";
 import { Model, DataTypes, Optional } from "sequelize";
 
 import { sendData } from "../producer";
+
+import serializeCulture from "../serializers/culture.serializer";
+
 import {
   MEDIA_ROOT,
   getServerAddress,
@@ -14,6 +17,8 @@ interface CultureAttributes {
   id?: number;
   name: string;
   image: string;
+  category: string;
+  description: string;
 }
 
 interface CultureCreationAttributes extends Optional<CultureAttributes, "id"> {}
@@ -25,7 +30,8 @@ class Culture
   public id!: number;
   public name!: string;
   public image!: string;
-
+  public category!: string;
+  public description!: string;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
 
@@ -50,6 +56,14 @@ Culture.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     sequelize,
@@ -59,30 +73,25 @@ Culture.init(
   }
 );
 
-// Culture.addHook("beforeCreate",(culture)=>{
-//   culture.name = culture.name.toLowerCase()
-
-// })
-
-Culture.addHook("afterCreate", (culture) => {
+Culture.addHook("afterCreate", async (culture) => {
   const message = {
     type: "culture_created",
-    data: culture.toJSON(),
+    data: serializeCulture(await Culture.findByPk(culture.dataValues.id)),
   };
 
   sendData(["soil", "parcel"], message);
 });
 
-Culture.addHook("afterUpdate", (culture) => {
+Culture.addHook("afterUpdate", async (culture) => {
   const message = {
     type: "culture_updated",
-    data: culture.toJSON(),
+    data: serializeCulture(await Culture.findByPk(culture.dataValues.id)),
   };
 
   sendData(["soil", "parcel"], message);
 });
 
-Culture.addHook("afterDestroy", (culture: Culture) => {
+Culture.addHook("beforeDestroy", (culture: Culture) => {
   const message = {
     type: "culture_deleted",
     data: { id: culture.id },
