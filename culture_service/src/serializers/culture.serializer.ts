@@ -4,7 +4,7 @@ function serializeCulture(culture: Culture | Culture[]): any {
   const serializeSingleCulture = (c: Culture) => {
     return {
       ...c.toJSON(),
-      imageUrl: c.imageUrl,
+      image: c.imageUrl,
     };
   };
 
