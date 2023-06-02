@@ -23,10 +23,6 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          echo "Building and pushing image for culture_service..."
-          docker build -t ghcr.io/${{ github.actor }}/${{ github.repository }}/culture_service:${IMAGE_TAG} culture_service
-          docker push ghcr.io/${{ github.actor }}/${{ github.repository }}/culture_service:${IMAGE_TAG}
-          echo "Image for culture_service has been built and pushed."
 
           echo "Building and pushing image for parcel_service..."
           docker build -t ghcr.io/${{ github.actor }}/${{ github.repository }}/parcel_service:${IMAGE_TAG} parcel_service
