@@ -1,0 +1,30 @@
+name: Build and Publish Culture Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: |
+          cd culture_service/ && docker build . -t culture_service:latest
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image to GitHub Container Registry
+        run: |
+          docker tag my-docker-image:latest ghcr.io/${{ github.repository }}/culture_service:latest
+          docker push ghcr.io/${{ github.repository }}/culture_service:latest
