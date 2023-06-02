@@ -34,11 +34,14 @@ def comsume_messages():
             id = data.pop('id',None)
             if id:
                 Culture.filter(id=id).update(**data)
+                print(f"Culture with id={id} updated")
+
 
         if msg_type == 'culture_deleted':
             id = data.pop('id',None)
             if id:
                 Culture.filter(id=id).delete()
+                print(f"Culture with id={id} deleted!")
 
     channel.basic_consume(queue="parcel",on_message_callback=callback,auto_ack=False)
 

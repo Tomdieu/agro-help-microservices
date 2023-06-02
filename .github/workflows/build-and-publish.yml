@@ -1,0 +1,34 @@
+name: Build and Push Docker Images
+on:
+  push:
+    branches:
+      - main # Modify this if your default branch is different
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker Images
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "Building and pushing image for culture_service..."
+          docker build -t ghcr.io/${{ github.repository_owner }}/${{ github.repository }}/culture_service:${IMAGE_TAG} culture_service
+          docker push ghcr.io/${{ github.repository_owner }}/${{ github.repository }}/culture_service:${IMAGE_TAG}
+          echo "Image for culture_service has been built and pushed."
+
+          echo "Building and pushing image for parcel_service..."
+          docker build -t ghcr.io/${{ github.repository_owner }}/${{ github.repository }}/parcel_service:${IMAGE_TAG} parcel_service
+          docker push ghcr.io/${{ github.repository_owner }}/${{ github.repository }}/parcel_service:${IMAGE_TAG}
+          echo "Image for parcel_service has been built and pushed."
