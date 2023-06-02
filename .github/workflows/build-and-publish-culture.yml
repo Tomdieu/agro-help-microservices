@@ -15,7 +15,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          cd culture_service/ && docker build . -t culture_service:latest
+          cd culture_service/ && docker build . --tag culture_service:latest
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
@@ -26,5 +26,5 @@ jobs:
 
       - name: Push Docker image to GitHub Container Registry
         run: |
-          docker tag my-docker-image:latest ghcr.io/${{ github.repository_owner }}/culture_service:latest
-          docker push ghcr.io/${{ github.repository_owner }}/culture_service:latest
+          docker tag culture_service:latest ghcr.io/tomdieu/agro-help-microservices/culture_service:latest
+          docker push ghcr.io/tomdieu/agro-help-microservices/culture_service:latest

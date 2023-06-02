@@ -15,7 +15,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t parcel_service:latest -f parcel_service/Dockerfile.
+          cd parcel_service && docker build . --tag parcel_service:latest
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
@@ -26,5 +26,5 @@ jobs:
 
       - name: Push Docker image to GitHub Container Registry
         run: |
-          docker tag parcel_service:latest ghcr.io/${{ github.repository_owner }}/parcel_service:latest
-          docker push ghcr.io/${{ github.repository_owner }}/parcel_service:latest
+          docker tag parcel_service:latest ghcr.io/tomdieu/agro-help-microservices/parcel_service:latest
+          docker push ghcr.io/tomdieu/agro-help-microservices/parcel_service:latest
