@@ -26,5 +26,5 @@ jobs:
 
       - name: Push Docker image to GitHub Container Registry
         run: |
-          docker tag parcel_service:latest ghcr.io/${{ github.repository }}/parcel_service:latest
-          docker push ghcr.io/${{ github.repository }}/parcel_service:latest
+          docker tag parcel_service:latest ghcr.io/${{ github.repository_owner }}/parcel_service:latest
+          docker push ghcr.io/${{ github.repository_owner }}/parcel_service:latest
