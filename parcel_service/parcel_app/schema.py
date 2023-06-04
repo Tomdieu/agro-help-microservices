@@ -16,9 +16,9 @@ from tortoise.contrib.pydantic.creator import pydantic_model_creator
 
 User_Pydantic = pydantic_model_creator(models.User)
 UserIn_Pydantic = pydantic_model_creator(models.User, exclude_readonly=True)
-Token_Pydantic = pydantic_model_creator(models.Token, exclude=["id"])
+Token_Pydantic = pydantic_model_creator(models.Token)
 TokenIn_Pydantic = pydantic_model_creator(models.Token, exclude_readonly=True)
-Parcel_Pydantic = pydantic_model_creator(models.Parcel, exclude=["id"],name="ParcelList")
+Parcel_Pydantic = pydantic_model_creator(models.Parcel, name="ParcelList")
 ParcelIn_Pydantic = pydantic_model_creator(models.Parcel, exclude_readonly=True,name="ParcelCreate")
 Culture_Pydantic = pydantic_model_creator(models.Culture)
 CultureIn_Pydantic = pydantic_model_creator(models.Culture, exclude_readonly=True)
@@ -107,6 +107,8 @@ class Parcel(BaseModel):
 
     class Config:
         orm_mode = True
+
+        
 
     
 
