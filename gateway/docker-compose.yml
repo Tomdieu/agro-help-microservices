@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:3.10-management-alpine
+    container_name: RabbitMq
+    restart: unless-stopped
+    environment:
+      - RABBITMQ_DEFAULT_USER=myuser
+      - RABBITMQ_DEFAULT_PASS=mypass
+    ports:
+      # AMQ protocol port
+      - "5672:5672"
+      # Http Managent UI
+      - "15672:15672"
+    volumes:
+      - ./rabbitmq_data:/var/lib/rabbitmq/mnesia
+
+    networks:
+      - bridge
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  gateway:
+    image: agro_help/gateway
+    restart: unless-stopped
+    build:
+      context: .
+    volumes:
+      - .:/app
+    ports:
+      - 5000:5000
+    container_name: agrohelp_gateway
+    command: python manage.py runserver 0.0.0.0:5000
+    depends_on:
+      - rabbitmq
+    networks:
+      - bridge
+
+networks:
+  bridge:
+    driver: bridge
+    name: network
+volumes:
+  rabbitmq_data:
+    driver: local
