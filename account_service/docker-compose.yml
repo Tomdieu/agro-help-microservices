@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  # Django application
+  account_service:
+    image: agrohelp/account_service
+    restart: unless-stopped
+    build:
+      context: .
+    volumes:
+      - .:/account_service
+    ports:
+      - 8001:8001
+    container_name: account_service
+    command: python manage.py runserver 0.0.0.0:8001
+    networks:
+      - bridge
+networks:
+  bridge:
+    driver: bridge
+    name: network

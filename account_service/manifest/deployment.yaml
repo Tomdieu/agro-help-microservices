@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-deployment
+spec:
+  selector:
+    matchLabels:
+      app: account-app
+  replicas: 3
+run:
+  template:
+    metadata:
+      labels:
+        app: account-app
+    spec:
+      containers:
+        - name:
+          image: agrohelp/account:latest
+          ports:
+          - 8001:8001
+          
