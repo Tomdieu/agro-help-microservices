@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # Django application
+  forum_service:
+    image: agrohelp/forum_service
+    restart: unless-stopped
+    build:
+      context: .
+    volumes:
+      - .:/forum_service
+    ports:
+      - 8001:8001
+    container_name: forum_service
+    command: python manage.py runserver 0.0.0.0:8001
+    networks:
+      - bridge
+    queue:
+      build:
+        context: .
+      command: 'python -u consumer.py'
+      depends_on:
+        - forum_service
+      restart: unless-stopped
+      container_name: forum_consumer
+      networks:
+        - bridge
+networks:
+  bridge:
+    driver: bridge
+    name: network
