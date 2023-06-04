@@ -2,7 +2,14 @@ import { sequelize } from "../config/db";
 
 import { DataTypes, Model } from "sequelize";
 
-class Soil extends Model {}
+class Soil extends Model {
+  public id!: number;
+  public type!: string;
+  public description!: string;
+  public composition!: string;
+  public readonly created_at!: Date;
+  public readonly updated_at!: Date;
+}
 
 Soil.init(
   {

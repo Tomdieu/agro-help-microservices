@@ -1,4 +1,4 @@
-name: Build and Push Account Image
+name: Build and Push Forum Docker Image
 on:
   push:
     branches:
@@ -11,10 +11,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Set repository name to lowercase
-        id: lowercase
-        run: echo ::set-output name=repo::${{ github.repository | lower }}
 
       - name: Build Docker image
         run: |
@@ -29,5 +25,5 @@ jobs:
 
       - name: Push Docker image to GitHub Container Registry
         run: |
-          docker tag forum_service:latest ghcr.io/${{ steps.lowercase.outputs.repo}}/forum_service:latest
-          docker push ghcr.io/${{ steps.lowercase.outputs.repo}}/forum_service:latest
+          docker tag forum_service:latest ghcr.io/tomdieu/agro-help-microservices/forum_service:latest
+          docker push ghcr.io/tomdieu/agro-help-microservices/forum_service:latest
